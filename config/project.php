@@ -3,7 +3,7 @@
 return [
     'trainingSession' => [
         'types' => [
-            'normal' => 'Normal training',
+            'regular' => 'Regular training',
             'sparring' => 'Sparring',
             'openMat' => 'Open mat'
         ]

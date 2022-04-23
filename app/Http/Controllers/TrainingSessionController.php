@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\ClassUser;
 use App\Http\Requests\ParticipatedTrainingSessionRequest;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Models\TrainingSession;
@@ -24,7 +23,7 @@ class TrainingSessionController extends Controller
             'trainingSession' => [
                 'id' => null,
                 'date' => Carbon::now()->format('Y-m-d'),
-                'type' => 'normal',
+                'type' => 'regular',
                 'notes' => '',
                 'techniques' => []
             ],

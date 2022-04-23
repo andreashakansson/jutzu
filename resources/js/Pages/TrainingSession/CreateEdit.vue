@@ -49,7 +49,7 @@
                                 </template>
                             </jet-form>
 
-                            <div v-if="form.type === 'normal'">
+                            <div v-if="form.type === 'regular'">
                                 <jet-form v-for="(technique, index) in form.techniques" :key="index" class="mt-8">
                                     <template #form>
 
