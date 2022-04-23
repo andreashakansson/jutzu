@@ -5,6 +5,7 @@ use App\Http\Controllers\TrainingSessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+
+    Route::get('/guide', function () {
+        return Inertia::render('Guide');
+    })->name('guide');
 
     Route::get('/training-session', [TrainingSessionController::class, 'create'])->name('trainingSession.create');
 
