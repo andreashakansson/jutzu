@@ -19,7 +19,7 @@ class TrainingSession extends Model
 
     public function getDateHumanAttribute()
     {
-        return $this->date->format('D d M Y');
+        return ucwords($this->date->translatedFormat('l jS F'));
     }
 
     public function getTypeHumanAttribute()
@@ -41,7 +41,10 @@ class TrainingSession extends Model
         $participants = $this->participants()->where('is_participant', true)->get();
         $out = [];
         foreach ($participants as $participant) {
-            $out[] = $participant->user->firstname;
+            $out[] = [
+                'name' => $participant->user->name,
+                'profile_photo_url' => $participant->user->profile_photo_url
+            ];
         }
         return $out;
     }

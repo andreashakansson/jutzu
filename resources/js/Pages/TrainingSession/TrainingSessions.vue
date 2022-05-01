@@ -12,10 +12,10 @@
 
                             <div class="flex">
                                 <h3 class="text-lg font-medium text-gray-900">
-                                    {{ trainingSession.typeHuman }}
+                                    {{ trainingSession.dateHuman }}
                                 </h3>
 
-                                <Menu as="div" class="relative inline-block text-left ml-3">
+                                <Menu as="div" class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
                                     <div>
                                         <MenuButton
                                             :class="getParticipatedButtonClasses(trainingSession.userIsParticipant)"
@@ -66,18 +66,17 @@
                                     </transition>
                                 </Menu>
 
+                                <img v-for="participant in trainingSession.participantUsers"
+                                     class="rounded-full object-cover mr-2"
+                                     style="width: 1.75rem; height: 1.75rem;"
+                                     :src="participant.profile_photo_url"
+                                     :alt="participant.name"
+                                     :title="participant.name"/>
+
                             </div>
 
                             <p class="mt-1 text-sm text-gray-500">
-                                {{ trainingSession.dateHuman }}
-                                -
-                                <span v-if="trainingSession.participantUsers.length === 0">
-                                    No participants yet
-                                </span>
-                                <span v-else>
-                                    Participants: {{ trainingSession.participantUsers.join(', ') }}
-                                </span>
-
+                                {{ trainingSession.typeHuman }}
                             </p>
                             <div v-if="trainingSession.notes" class="mt-2 text-base font-medium text-gray-900">
                                 <p>{{ trainingSession.notes }}</p>

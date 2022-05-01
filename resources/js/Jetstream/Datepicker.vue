@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             config: {
-                altFormat: 'D d M Y',
+                altFormat: 'l j F Y',
                 altInput: true,
                 dateFormat: 'Y-m-d',
                 locale: Swedish, // locale for this instance only
