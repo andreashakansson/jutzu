@@ -24,7 +24,7 @@
                                 </div>
 
                                 <Menu v-if="trainingSession.type !== 'cancelled'" as="div"
-                                      class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
+                                      class="relative inline-block text-left ml-3 mr-3 mt-[1px] text-gray-600 bg-gray-200 hover:bg-gray-100">
                                     <div>
                                         <MenuButton
                                             :class="getParticipatedButtonClasses(trainingSession.userIsParticipant)"
