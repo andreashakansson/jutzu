@@ -5,7 +5,8 @@ return [
         'types' => [
             'regular' => 'Training session',
             'sparring' => 'Sparring',
-            'openMat' => 'Open mat'
+            'openMat' => 'Open mat',
+            'cancelled' => 'Cancelled session'
         ]
     ]
 ];

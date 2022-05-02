@@ -15,7 +15,8 @@
                                     {{ trainingSession.dateHuman }}
                                 </h3>
 
-                                <Menu as="div" class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
+                                <Menu v-if="trainingSession.type !== 'cancelled'" as="div"
+                                      class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
                                     <div>
                                         <MenuButton
                                             :class="getParticipatedButtonClasses(trainingSession.userIsParticipant)"
