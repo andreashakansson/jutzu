@@ -15,10 +15,13 @@
                                     {{ trainingSession.dateHuman }}
                                 </h3>
 
-                                <jet-button v-if="trainingSession.type === 'cancelled'" type="button"
-                                            class="inline-flex justify-center w-full rounded border px-2 py-1 text-xs font-semibold uppercase">
-                                    Cancelled
-                                </jet-button>
+                                <div v-if="trainingSession.type === 'cancelled'"
+                                     class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
+                                    <jet-button type="button"
+                                                class="inline-flex justify-center w-full rounded border px-2 py-1 text-xs font-semibold uppercase">
+                                        Cancelled
+                                    </jet-button>
+                                </div>
 
                                 <Menu v-if="trainingSession.type !== 'cancelled'" as="div"
                                       class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
