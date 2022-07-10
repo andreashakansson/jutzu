@@ -43,10 +43,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::post('/training-session', [TrainingSessionController::class, 'submit'])->name('trainingSession.submit');
 
-    Route::get('/training-session/{trainingSession}/edit', [TrainingSessionController::class, 'edit'])->name(
-        'trainingSession.edit'
-    );
+    Route::get('/training-session/{trainingSessionId}/edit', [TrainingSessionController::class, 'edit'])
+        ->name('trainingSession.edit');
 
-    Route::post('/training-session/{trainingSession}/participant', [TrainingSessionController::class, 'participant'])
+    Route::post('/training-session/{trainingSessionId}/participant', [TrainingSessionController::class, 'participant'])
         ->name('trainingSession.participant');
 });

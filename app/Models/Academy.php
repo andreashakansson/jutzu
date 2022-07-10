@@ -14,4 +14,9 @@ class Academy extends Model
     {
         return $this->hasMany(TrainingSession::class);
     }
+
+    public function techniques(): HasMany
+    {
+        return $this->hasMany(Technique::class);
+    }
 }

@@ -52,40 +52,14 @@
                             <div v-if="form.type === 'regular'">
                                 <jet-form v-for="(technique, index) in form.techniques" :key="index" class="mt-8">
                                     <template #form>
-
-                                        <div class="col-span-6 sm:col-span-4">
-                                            <strong @click="removeTechnique(index)" title="Remove"
-                                                    class="text-xl align-center cursor-pointer alert-del">
-                                                &times;
-                                            </strong>
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-4">
-                                            <jet-label :for="'name-' + index"
-                                                       :value="'Name of technique ' + (index+1) + ' *'"/>
-                                            <jet-input :id="'name-' + index" type="text" class="mt-1 block w-full"
-                                                       v-model="technique.name" autocomplete="off"/>
-                                            <jet-input-error :message="techniqueErrors(index, 'name')" class="mt-2"/>
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-4">
-                                            <jet-label :for="'description-' + index" value="Description of technique"/>
-                                            <jet-textarea :for="'description-' + index" class="mt-1 block w-full"
-                                                          v-model="technique.description" autocomplete="off" rows="3"/>
-                                            <jet-input-error :message="techniqueErrors(index, 'description')"
-                                                             class="mt-2"/>
-                                        </div>
-
-                                        <div class="col-span-6 sm:col-span-4">
-                                            <jet-label :for="'youtube-url-' + index" value="Youtube link"/>
-                                            <jet-input :id="'youtube-url-' + index" type="text"
-                                                       class="mt-1 block w-full"
-                                                       v-model="technique.youtube_url" autocomplete="off"/>
-                                            <jet-input-error
-                                                :message="techniqueErrors(index, 'youtube_url')"
-                                                class="mt-2"/>
-                                        </div>
-
+                                        <edit-technique
+                                            :form-errors="form.errors"
+                                            :technique="technique"
+                                            :all-techniques="allTechniques"
+                                            :index="index"
+                                            @remove-technique="removeTechnique(index)"
+                                        >
+                                        </edit-technique>
                                     </template>
                                 </jet-form>
 
@@ -134,13 +108,17 @@ import JetTextarea from '@/Jetstream/Textarea.vue'
 import JetSelect from '@/Jetstream/Select.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
+import Multiselect from 'vue-multiselect'
+import EditTechnique from './Partials/EditTechnique'
 
 export default defineComponent({
     props: [
         'trainingSession',
-        'types'
+        'types',
+        'allTechniques'
     ],
     components: {
+        EditTechnique,
         AppLayout,
         JetActionMessage,
         JetButton,
@@ -150,16 +128,18 @@ export default defineComponent({
         JetTextarea,
         JetSelect,
         JetInputError,
-        JetLabel
+        JetLabel,
+        Multiselect
     },
     data() {
         return {
-            form: this.$inertia.form(this.trainingSession),
+            form: this.$inertia.form(this.trainingSession)
         }
     },
     methods: {
         addTechnique() {
             this.form.techniques.push({
+                'id': null,
                 'name': '',
                 'description': '',
                 'youtube_url': ''
@@ -186,11 +166,17 @@ export default defineComponent({
                     }*/
                 }
             })
-        },
-        techniqueErrors(index, field) {
-            const errorKey = 'techniques.' + index + '.' + field;
-            return this.form.errors[errorKey];
         }
     }
 })
 </script>
+
+<style>
+.multiselect__tags {
+    border-color: rgb(209 213 219 / var(--tw-border-opacity)) !important;
+}
+
+.multiselect__tags input[type="text"]:focus {
+    --tw-ring-color: 0;
+}
+</style>

@@ -28,6 +28,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.4.3",
         "@heroicons/vue": "^1.0.5",
-        "vue-flatpickr-component": "^9.0.5"
+        "vue-flatpickr-component": "^9.0.5",
+        "vue-multiselect": "^3.0.0-alpha.2"
     }
 }

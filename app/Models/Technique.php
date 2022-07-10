@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class TrainingSessionTechnique extends Model
+class Technique extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'training_session_id', // @todo: Delete
         'academy_id',
         'name',
         'description',

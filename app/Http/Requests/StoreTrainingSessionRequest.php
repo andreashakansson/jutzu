@@ -27,6 +27,7 @@ class StoreTrainingSessionRequest extends FormRequest
             'date' => 'required|date',
             'type' => 'required|in:' . implode(',', array_keys(config('project.trainingSession.types'))),
             'description' => 'max:2048',
+            'techniques.*.id' => 'nullable|integer', // @todo: Handle this validation in some other way?
             'techniques.*.name' => 'required|max:255',
             'techniques.*.description' => 'max:2048',
             'techniques.*.youtubeUrl' => 'nullable|url'

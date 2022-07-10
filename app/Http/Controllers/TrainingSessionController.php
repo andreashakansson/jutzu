@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ParticipatedTrainingSessionRequest;
 use App\Http\Requests\StoreTrainingSessionRequest;
-use App\Models\TrainingSession;
 use App\Models\TrainingSessionParticipant;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -18,6 +17,8 @@ class TrainingSessionController extends Controller
 {
     public function create(): Response
     {
+        Auth::user()->academies()->firstOrFail();
+
         $types = config('project.trainingSession.types');
         $data = [
             'trainingSession' => [
@@ -27,24 +28,36 @@ class TrainingSessionController extends Controller
                 'notes' => '',
                 'techniques' => []
             ],
-            'types' => $types
+            'types' => $types,
+            'allTechniques' => $this->getAcademyTechniques()
         ];
         return Inertia::render('TrainingSession/CreateEdit', $data);
     }
 
-    public function edit(TrainingSession $trainingSession): Response
+    public function edit($trainingSessionId): Response
     {
-        // @todo: Check so training session belongs to user/academy etc
+        $trainingSession = Auth::user()->academies()->first()->trainingSessions()->findOrFail($trainingSessionId);
+
         $types = config('project.trainingSession.types');
+        $techniques = [];
+        foreach ($trainingSession->techniques as $technique) {
+            $techniques[] = [
+                'id' => $technique->id,
+                'name' => $technique->name,
+                'description' => $technique->description,
+                'youtube_url' => $technique->youtube_url
+            ];
+        }
         $data = [
             'trainingSession' => [
                 'id' => $trainingSession->id,
                 'date' => $trainingSession->date->format('Y-m-d'),
                 'type' => $trainingSession->type,
                 'notes' => $trainingSession->notes,
-                'techniques' => $trainingSession->techniques
+                'techniques' => $techniques
             ],
-            'types' => $types
+            'types' => $types,
+            'allTechniques' => $this->getAcademyTechniques()
         ];
         return Inertia::render('TrainingSession/CreateEdit', $data);
     }
@@ -63,7 +76,7 @@ class TrainingSessionController extends Controller
                 'notes' => $request->input('notes'),
             ]);
             $trainingSession->save();
-            $trainingSession->techniques()->delete();
+            $trainingSession->techniques()->detach();
             $message = _('Training session has been updated!');
         } else {
             $trainingSession = $academy->trainingSessions()->create([
@@ -84,14 +97,21 @@ class TrainingSessionController extends Controller
                     $youtubeId = $this->getYoutubeId($youtubeUrl);
                 }
 
-                $trainingSession->techniques()->create([
-                    'academy_id' => $academy->id,
-                    'name' => $technique['name'],
-                    'description' => $technique['description'],
-                    'youtube_url' => $youtubeUrl,
-                    'youtube_id' => $youtubeId,
-                    'created_by' => $user->id
-                ]);
+                if (is_integer($technique['id'])) {
+                    // Attach existing technique
+                    $trainingSession->techniques()->attach($technique['id']);
+                } else {
+                    // Create technique
+                    $trainingSession->techniques()->create([
+                        'training_session_id' => 0, // @todo: Remove
+                        'academy_id' => $academy->id,
+                        'name' => $technique['name'],
+                        'description' => $technique['description'],
+                        'youtube_url' => $youtubeUrl,
+                        'youtube_id' => $youtubeId,
+                        'created_by' => $user->id
+                    ]);
+                }
             }
         }
 
@@ -99,17 +119,28 @@ class TrainingSessionController extends Controller
     }
 
     public function participant(
-        TrainingSession $trainingSession,
+        $trainingSessionId,
         ParticipatedTrainingSessionRequest $request
     ): RedirectResponse {
-        // @todo: Validation that user really belongs to training session/club etc. See other method for same..
-        Log::info('Training session ID: ' . $trainingSession->id);
-        Log::info('User ID: ' . Auth::user()->id);
+        $trainingSession = Auth::user()->academies()->first()->trainingSessions()->findOrFail($trainingSessionId);
+
         TrainingSessionParticipant::updateOrCreate(
             ['training_session_id' => $trainingSession->id, 'user_id' => Auth::user()->id],
             ['is_participant' => $request->input('is_participant')]
         );
         return Redirect::route('dashboard');
+    }
+
+    private function getAcademyTechniques()
+    {
+        $allTechniques = [];
+        foreach (Auth::user()->academies()->first()->techniques as $technique) {
+            $allTechniques[] = [
+                'id' => $technique->id,
+                'name' => $technique->name
+            ];
+        }
+        return $allTechniques;
     }
 
     private function getYoutubeId($videourl)
