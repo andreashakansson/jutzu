@@ -103,7 +103,6 @@ class TrainingSessionController extends Controller
                 } else {
                     // Create technique
                     $trainingSession->techniques()->create([
-                        'training_session_id' => 0, // @todo: Remove
                         'academy_id' => $academy->id,
                         'name' => $technique['name'],
                         'description' => $technique['description'],

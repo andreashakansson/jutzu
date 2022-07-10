@@ -11,7 +11,6 @@ class Technique extends Model
     use HasFactory;
 
     protected $fillable = [
-        'training_session_id', // @todo: Delete
         'academy_id',
         'name',
         'description',
