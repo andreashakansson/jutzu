@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TechniqueController;
 use App\Http\Controllers\TrainingSessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -48,4 +49,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::post('/training-session/{trainingSessionId}/participant', [TrainingSessionController::class, 'participant'])
         ->name('trainingSession.participant');
+
+    Route::get('/technique', [TechniqueController::class, 'index'])->name('technique.index');
+
 });
