@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Technique extends Model
@@ -22,6 +23,11 @@ class Technique extends Model
     ];
 
     protected $appends = ['youtube_embed_url'];
+
+    public function trainingSessions(): BelongsToMany
+    {
+        return $this->belongsToMany(TrainingSession::class);
+    }
 
     public function getYoutubeEmbedUrlAttribute()
     {

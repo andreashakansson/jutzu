@@ -40,16 +40,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return Inertia::render('Guide');
     })->name('guide');
 
-    Route::get('/training-session', [TrainingSessionController::class, 'create'])->name('trainingSession.create');
-
-    Route::post('/training-session', [TrainingSessionController::class, 'submit'])->name('trainingSession.submit');
-
+    Route::get('/training-session', [TrainingSessionController::class, 'create'])
+        ->name('trainingSession.create');
+    Route::post('/training-session', [TrainingSessionController::class, 'submit'])
+        ->name('trainingSession.submit');
     Route::get('/training-session/{trainingSessionId}/edit', [TrainingSessionController::class, 'edit'])
         ->name('trainingSession.edit');
-
     Route::post('/training-session/{trainingSessionId}/participant', [TrainingSessionController::class, 'participant'])
         ->name('trainingSession.participant');
 
-    Route::get('/technique', [TechniqueController::class, 'index'])->name('technique.index');
+    Route::get('/technique', [TechniqueController::class, 'index'])
+        ->name('technique.index');
+    Route::get('/technique/create', [TechniqueController::class, 'create'])
+        ->name('technique.create');
+    Route::get('/technique/{techniqueId}/edit', [TechniqueController::class, 'edit'])
+        ->name('technique.edit');
+    Route::post('/technique', [TechniqueController::class, 'submit'])
+        ->name('technique.submit');
+    Route::delete('/technique/{techniqueId}', [TechniqueController::class, 'delete'])
+        ->name('technique.delete');
 
 });

@@ -24,7 +24,7 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
-                                <jet-nav-link :href="route('technique.index')" :active="route().current('technique.index')">
+                                <jet-nav-link :href="route('technique.index')" :active="route().current('technique.*')">
                                     Techniques
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('guide')" :active="route().current('guide')">

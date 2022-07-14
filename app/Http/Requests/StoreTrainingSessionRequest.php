@@ -30,7 +30,7 @@ class StoreTrainingSessionRequest extends FormRequest
             'techniques.*.id' => 'nullable|integer', // @todo: Handle this validation in some other way?
             'techniques.*.name' => 'required|max:255',
             'techniques.*.description' => 'max:2048',
-            'techniques.*.youtubeUrl' => 'nullable|url'
+            'techniques.*.youtube_url' => 'nullable|url'
         ];
     }
 
@@ -43,7 +43,7 @@ class StoreTrainingSessionRequest extends FormRequest
             'techniques.*.name.required' => _('You need to enter a name'),
             'techniques.*.name.max' => _('The name is too long. Maximum is 255 characters.'),
             'techniques.*.description.max' => _('The description is too long. Maximum is 2048 characters.'),
-            'techniques.*.youtubeUrl.url' => _('Not a valid Youtube link')
+            'techniques.*.youtube_url.url' => _('Not a valid Youtube link')
         ];
     }
 }

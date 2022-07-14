@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ParticipatedTrainingSessionRequest;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Models\TrainingSessionParticipant;
+use App\Services\TechniqueService;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -93,8 +94,9 @@ class TrainingSessionController extends Controller
                 $youtubeUrl = null;
                 $youtubeId = null;
                 if ($technique['youtube_url']) {
-                    $youtubeUrl = $this->getVideoUrl($technique['youtube_url']);
-                    $youtubeId = $this->getYoutubeId($youtubeUrl);
+                    $service = new TechniqueService();
+                    $youtubeUrl = $service->getVideoUrl($technique['youtube_url']);
+                    $youtubeId = $service->getYoutubeId($youtubeUrl);
                 }
 
                 if (is_integer($technique['id'])) {
@@ -140,38 +142,5 @@ class TrainingSessionController extends Controller
             ];
         }
         return $allTechniques;
-    }
-
-    private function getYoutubeId($videourl)
-    {
-        parse_str(parse_url($videourl, PHP_URL_QUERY), $vars);
-        if (array_key_exists('v', $vars)) {
-            return $vars['v'];
-        }
-        return null;
-    }
-
-    private function getVideoUrl($videourl)
-    {
-        if (strstr($videourl, 'youtu.be')) {
-            parse_str(parse_url($videourl, PHP_URL_QUERY), $vars);
-            $time = null;
-            if (array_key_exists('t', $vars)) {
-                $time = $vars['t'] . 's';
-            }
-
-            $parseUrl = parse_url($videourl);
-            Log::info('Parse URL');
-            Log::info($parseUrl);
-            if (array_key_exists('path', $parseUrl)) {
-                Log::info('path:' . $parseUrl['path']);
-                $videoId = trim($parseUrl['path'], '/');
-                $videourl = 'https://youtube.com/watch?v=' . $videoId;
-                if ($time) {
-                    $videourl .= '&t=' . $time;
-                }
-            }
-        }
-        return $videourl;
     }
 }

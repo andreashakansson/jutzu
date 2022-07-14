@@ -27,6 +27,11 @@
             autocomplete="off"
         />
         <jet-input-error :message="techniqueErrors(index, 'name')" class="mt-2"/>
+
+        <a v-if="technique.id" :href="route('technique.edit', technique.id)" target="_blank"
+              class="underline text-sm text-gray-600 hover:text-gray-900">
+            Edit technique (opens in new tab)
+        </a>
     </div>
 
     <template v-if="!technique.id && technique.name !== ''">
@@ -64,6 +69,7 @@ import JetSelect from '@/Jetstream/Select.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import Multiselect from 'vue-multiselect'
+import {Link} from '@inertiajs/inertia-vue3';
 
 export default defineComponent({
     props: [
@@ -86,7 +92,8 @@ export default defineComponent({
         JetSelect,
         JetInputError,
         JetLabel,
-        Multiselect
+        Multiselect,
+        Link
     },
     data() {
         return {
