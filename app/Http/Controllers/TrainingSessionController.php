@@ -119,6 +119,24 @@ class TrainingSessionController extends Controller
         return Redirect::route('dashboard')->with(['toast' => ['message' => $message]]);
     }
 
+    public function delete($trainingSessionId)
+    {
+        $trainingSession = Auth::user()->academies()->first()->trainingSessions()->findOrFail($trainingSessionId);
+
+        // Detach techniques
+        $trainingSession->techniques()->detach();
+
+        // Delete participants
+        $trainingSession->participants()->delete();
+
+        // Delete training session
+        $trainingSession->delete();
+
+        $message = _('Training session has been deleted!');
+
+        return Redirect::route('dashboard')->with(['toast' => ['message' => $message]]);
+    }
+
     public function participant(
         $trainingSessionId,
         ParticipatedTrainingSessionRequest $request

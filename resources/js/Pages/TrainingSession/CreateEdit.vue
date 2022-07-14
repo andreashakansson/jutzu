@@ -79,6 +79,35 @@
                                                 Saved.
                                             </jet-action-message>
 
+                                            <jet-danger-button v-if="trainingSession.id" @click="confirmDeletion" class="mr-2">
+                                                Delete training session
+                                            </jet-danger-button>
+
+                                            <!-- Delete Training Session Confirmation Modal -->
+                                            <jet-dialog-modal :show="confirmingDeletion" @close="closeModal">
+                                                <template #title>
+                                                    Delete training session
+                                                </template>
+
+                                                <template #content>
+                                                    Are you sure you want to delete this training session?
+                                                </template>
+
+                                                <template #footer>
+                                                    <jet-secondary-button @click="closeModal">
+                                                        Cancel
+                                                    </jet-secondary-button>
+
+                                                    <jet-danger-button
+                                                        class="ml-3"
+                                                        @click="deleteTrainingSession"
+                                                        :class="{ 'opacity-25': deleteForm.processing }"
+                                                        :disabled="deleteForm.processing">
+                                                        Delete training session
+                                                    </jet-danger-button>
+                                                </template>
+                                            </jet-dialog-modal>
+
                                             <jet-button :class="{ 'opacity-25': form.processing }"
                                                         :disabled="form.processing">
                                                 Save training session
@@ -110,6 +139,9 @@ import JetInputError from '@/Jetstream/InputError.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import Multiselect from 'vue-multiselect'
 import EditTechnique from './Partials/EditTechnique'
+import JetDangerButton from '@/Jetstream/DangerButton.vue'
+import JetDialogModal from '@/Jetstream/DialogModal.vue'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
 export default defineComponent({
     props: [
@@ -129,11 +161,16 @@ export default defineComponent({
         JetSelect,
         JetInputError,
         JetLabel,
-        Multiselect
+        Multiselect,
+        JetDangerButton,
+        JetDialogModal,
+        JetSecondaryButton
     },
     data() {
         return {
-            form: this.$inertia.form(this.trainingSession)
+            form: this.$inertia.form(this.trainingSession),
+            deleteForm: this.$inertia.form(),
+            confirmingDeletion: false,
         }
     },
     methods: {
@@ -166,6 +203,20 @@ export default defineComponent({
                     }*/
                 }
             })
+        },
+        deleteTrainingSession() {
+            this.deleteForm.delete(route('trainingSession.delete', this.trainingSession.id), {
+                preserveScroll: false,
+                onSuccess: () => this.closeModal(),
+                // onError: () => this.$refs.password.focus(),
+                onFinish: () => this.deleteForm.reset(),
+            })
+        },
+        confirmDeletion() {
+            this.confirmingDeletion = true
+        },
+        closeModal() {
+            this.confirmingDeletion = false
         }
     }
 })

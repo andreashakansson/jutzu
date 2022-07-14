@@ -46,6 +46,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->name('trainingSession.submit');
     Route::get('/training-session/{trainingSessionId}/edit', [TrainingSessionController::class, 'edit'])
         ->name('trainingSession.edit');
+    Route::delete('/training-session/{trainingSessionId}', [TrainingSessionController::class, 'delete'])
+        ->name('trainingSession.delete');
     Route::post('/training-session/{trainingSessionId}/participant', [TrainingSessionController::class, 'participant'])
         ->name('trainingSession.participant');
 
