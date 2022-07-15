@@ -28,6 +28,7 @@
 
 
                             <div class="bg-white px-4 py-5 border-gray-200 sm:px-6">
+
                                 <div class="-ml-4 -mt-4 flex justify-between flex-wrap sm:flex-nowrap">
                                     <div class="ml-4 mt-4">
 
@@ -39,17 +40,6 @@
 
                                         <div v-if="technique.description" class="mt-1 text-sm text-gray-500">
                                             <p>{{ technique.description }}</p>
-                                        </div>
-                                        <div class="">
-                                            <div v-if="technique.youtube_embed_url" class="video-container mt-4 mb-4">
-                                                <iframe width="560" height="315" :src="technique.youtube_embed_url"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                            </div>
-                                            <div v-else class="mt-1 text-sm text-gray-500">
-                                                No video added yet.
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="ml-4 mt-5 flex-shrink-0 flex">
@@ -86,6 +76,20 @@
 
                                     </div>
                                 </div>
+
+                                <div class="max-w-full lg:max-w-[60%]">
+                                    <div v-if="technique.youtube_embed_url" class="video-container mt-4 mb-4">
+                                        <iframe width="560" height="315" :src="technique.youtube_embed_url"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                    <div v-else class="mt-1 text-sm text-gray-500">
+                                        No video added yet.
+                                    </div>
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -158,3 +162,22 @@ export default defineComponent({
     },
 })
 </script>
+
+<style>
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
