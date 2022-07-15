@@ -20,6 +20,9 @@
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                 </div>
+                <Link :href="route('technique.edit', technique.id)" class="text-sm text-gray-700 underline">
+                    Edit technique
+                </Link>
             </div>
         </div>
     </a>
@@ -27,8 +30,12 @@
 
 <script>
 import {defineComponent} from "vue";
+import {Link} from '@inertiajs/inertia-vue3';
 
 export default defineComponent({
+    components: {
+        Link,
+    },
     props: [
         'technique'
     ],
