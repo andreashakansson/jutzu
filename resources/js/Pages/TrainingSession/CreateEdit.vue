@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Training session">
+    <app-layout :title="__('Training session')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Training session
+                {{ __('Training session') }}
             </h2>
         </template>
 
@@ -13,10 +13,10 @@
                         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div class="mt-8 mb-8 text-2xl">
                                 <template v-if="trainingSession.id">
-                                    Edit training session
+                                    {{ __('Edit training session') }}
                                 </template>
                                 <template v-else>
-                                    New training session
+                                    {{ __('New training session') }}
                                 </template>
                             </div>
 
@@ -25,7 +25,7 @@
                                 <template #form>
                                     <div class="col-span-6 sm:col-span-4">
 
-                                        <jet-label for="date" value="Date *"/>
+                                        <jet-label for="date" :value="__('Date') + ' *'"/>
                                         <jet-datepicker id="date" class="mt-1 block w-full"
                                                         v-model="form.date" autocomplete="off" rows="3"/>
                                         <jet-input-error :message="form.errors.date" class="mt-2"/>
@@ -33,7 +33,7 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-4">
-                                        <jet-label for="type" value="Type *"/>
+                                        <jet-label for="type" :value="__('Type of training session') + ' *'"/>
                                         <jet-select id="type" class="mt-1 block w-full" v-model="form.type"
                                                     :options="types"
                                                     autocomplete="off"/>
@@ -41,7 +41,7 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-4">
-                                        <jet-label for="notes" value="Notes for training session"/>
+                                        <jet-label for="notes" :value="__('Notes for training session')"/>
                                         <jet-textarea id="notes" class="mt-1 block w-full"
                                                       v-model="form.notes" autocomplete="off" rows="3"/>
                                         <jet-input-error :message="form.errors.notes" class="mt-2"/>
@@ -64,7 +64,9 @@
                                 </jet-form>
 
                                 <div class="col-span-6 sm:col-span-4 mt-8">
-                                    <jet-button type="button" @click="addTechnique()">+ Technique</jet-button>
+                                    <jet-button type="button" @click="addTechnique()">
+                                        + {{ __('Add technique') }}
+                                    </jet-button>
                                 </div>
                             </div>
 
@@ -76,26 +78,26 @@
                                         <div
                                             class="flex items-center justify-end px-4 py-3 text-right sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
                                             <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                                                Saved.
+                                                {{ __('Saved.') }}
                                             </jet-action-message>
 
                                             <jet-danger-button v-if="trainingSession.id" @click="confirmDeletion" class="mr-2">
-                                                Delete training session
+                                                {{ __('Delete training session') }}
                                             </jet-danger-button>
 
                                             <!-- Delete Training Session Confirmation Modal -->
                                             <jet-dialog-modal :show="confirmingDeletion" @close="closeModal">
                                                 <template #title>
-                                                    Delete training session
+                                                    {{ __('Delete training session') }}
                                                 </template>
 
                                                 <template #content>
-                                                    Are you sure you want to delete this training session?
+                                                    {{ __('Are you sure you want to delete this training session?') }}
                                                 </template>
 
                                                 <template #footer>
                                                     <jet-secondary-button @click="closeModal">
-                                                        Cancel
+                                                        {{ __('Cancel') }}
                                                     </jet-secondary-button>
 
                                                     <jet-danger-button
@@ -103,14 +105,14 @@
                                                         @click="deleteTrainingSession"
                                                         :class="{ 'opacity-25': deleteForm.processing }"
                                                         :disabled="deleteForm.processing">
-                                                        Delete training session
+                                                        {{ __('Delete training session') }}
                                                     </jet-danger-button>
                                                 </template>
                                             </jet-dialog-modal>
 
                                             <jet-button :class="{ 'opacity-25': form.processing }"
                                                         :disabled="form.processing">
-                                                Save training session
+                                                {{ __('Save training session') }}
                                             </jet-button>
                                         </div>
                                     </form>

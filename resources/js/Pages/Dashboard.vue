@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Training session">
+    <app-layout :title="__('Training sessions')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                {{ __('Training sessions') }}
             </h2>
         </template>
 
@@ -10,13 +10,13 @@
             <div class="py-10">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-between mb-2">
                     <div class="text-2xl">
-                        Latest training sessions at {{ academy.name }}
+                        {{ __('Latest training sessions at :academy', {academy: academy.name}) }}
                     </div>
 
                     <div class="flex-shrink-0 flex">
                         <Link :href="route('trainingSession.create')" as="button" type="button"
                               class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                            New training session
+                            {{ __('New training session') }}
                         </Link>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
             <div class="py-10">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-between mb-2">
                     <div class="text-2xl">
-                        You don't belong to any academy yet.
+                        {{ __('You don\'t belong to any academy right now.') }}
                     </div>
                 </div>
             </div>

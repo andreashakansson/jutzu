@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Profile">
+    <app-layout :title="__('Profile')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Profile
+                {{ __('Profile') }}
             </h2>
         </template>
 

@@ -9,7 +9,6 @@ use App\Services\TechniqueService;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -20,7 +19,6 @@ class TrainingSessionController extends Controller
     {
         Auth::user()->academies()->firstOrFail();
 
-        $types = config('project.trainingSession.types');
         $data = [
             'trainingSession' => [
                 'id' => null,
@@ -29,7 +27,7 @@ class TrainingSessionController extends Controller
                 'notes' => '',
                 'techniques' => []
             ],
-            'types' => $types,
+            'types' => $this->getTypesTranslated(),
             'allTechniques' => $this->getAcademyTechniques()
         ];
         return Inertia::render('TrainingSession/CreateEdit', $data);
@@ -39,7 +37,6 @@ class TrainingSessionController extends Controller
     {
         $trainingSession = Auth::user()->academies()->first()->trainingSessions()->findOrFail($trainingSessionId);
 
-        $types = config('project.trainingSession.types');
         $techniques = [];
         foreach ($trainingSession->techniques as $technique) {
             $techniques[] = [
@@ -57,7 +54,7 @@ class TrainingSessionController extends Controller
                 'notes' => $trainingSession->notes,
                 'techniques' => $techniques
             ],
-            'types' => $types,
+            'types' => $this->getTypesTranslated(),
             'allTechniques' => $this->getAcademyTechniques()
         ];
         return Inertia::render('TrainingSession/CreateEdit', $data);
@@ -78,7 +75,7 @@ class TrainingSessionController extends Controller
             ]);
             $trainingSession->save();
             $trainingSession->techniques()->detach();
-            $message = _('Training session has been updated!');
+            $message = __('Training session has been updated!');
         } else {
             $trainingSession = $academy->trainingSessions()->create([
                 'date' => $request->input('date'),
@@ -86,7 +83,7 @@ class TrainingSessionController extends Controller
                 'notes' => $request->input('notes'),
                 'created_by' => $user->id
             ]);
-            $message = _('Training session has been added!');
+            $message = __('Training session has been added!');
         }
 
         if ($request->has('techniques')) {
@@ -132,7 +129,7 @@ class TrainingSessionController extends Controller
         // Delete training session
         $trainingSession->delete();
 
-        $message = _('Training session has been deleted!');
+        $message = __('Training session has been deleted!');
 
         return Redirect::route('dashboard')->with(['toast' => ['message' => $message]]);
     }
@@ -160,5 +157,15 @@ class TrainingSessionController extends Controller
             ];
         }
         return $allTechniques;
+    }
+
+    private function getTypesTranslated(): array
+    {
+        $types = config('project.trainingSession.types');
+        $out = [];
+        foreach ($types as $typeKey => $typeName) {
+            $out[$typeKey] = __($typeName);
+        }
+        return $out;
     }
 }

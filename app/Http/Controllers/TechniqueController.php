@@ -86,7 +86,7 @@ class TechniqueController extends Controller
                 'youtube_id' => $youtubeId,
             ]);
             $technique->save();
-            $message = _('Technique has been updated!');
+            $message = __('Technique has been updated!');
         } else {
             $academy->techniques()->create([
                 'academy_id' => $academy->id,
@@ -96,7 +96,7 @@ class TechniqueController extends Controller
                 'youtube_id' => $youtubeId,
                 'created_by' => $user->id
             ]);
-            $message = _('Technique has been added!');
+            $message = __('Technique has been added!');
         }
 
         return Redirect::route('technique.index')->with(['toast' => ['message' => $message]]);
@@ -107,9 +107,9 @@ class TechniqueController extends Controller
         $technique = Auth::user()->academies()->first()->techniques()->findOrFail($techniqueId);
 
         if ($technique->trainingSessions->count() > 0) {
-            $message = _('Technique can not be deleted as it exists on training sessions');
+            $message = __('Technique can not be deleted as it exists on a training session.');
         } else {
-            $message = _('Technique has been deleted!');
+            $message = __('Technique has been deleted!');
             $technique->delete();
         }
 

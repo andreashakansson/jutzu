@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Technique">
+    <app-layout :title="__('Technique')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Technique
+                {{ __('Technique') }}
             </h2>
         </template>
 
@@ -13,10 +13,10 @@
                         <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div class="mt-8 mb-8 text-2xl">
                                 <template v-if="technique.id">
-                                    Edit technique
+                                    {{ __('Edit technique') }}
                                 </template>
                                 <template v-else>
-                                    New technique
+                                    {{ __('New technique') }}
                                 </template>
                             </div>
 
@@ -24,7 +24,7 @@
 
                                 <template #form>
                                     <div class="col-span-6 sm:col-span-4">
-                                        <jet-label for="name" value="Name *"/>
+                                        <jet-label for="name" :value="__('Name') + ' *'"/>
                                         <jet-input id="name" type="text"
                                                    class="mt-1 block w-full"
                                                    v-model="form.name" autocomplete="off"/>
@@ -34,7 +34,7 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-4">
-                                        <jet-label for="description" value="Description of technique"/>
+                                        <jet-label for="description" :value="__('Description of technique')"/>
                                         <jet-textarea for="description" class="mt-1 block w-full"
                                                       v-model="form.description" autocomplete="off" rows="3"/>
                                         <jet-input-error :message="form.errors.description"
@@ -42,7 +42,7 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-4">
-                                        <jet-label for="youtube-url" value="Youtube link"/>
+                                        <jet-label for="youtube-url" :value="__('Youtube link')"/>
                                         <jet-input id="youtube-url" type="text"
                                                    class="mt-1 block w-full"
                                                    v-model="form.youtube_url" autocomplete="off"/>
@@ -60,31 +60,32 @@
                                         <div
                                             class="flex items-center justify-end px-4 py-3 text-right sm:px-6 sm:rounded-bl-md sm:rounded-br-md">
                                             <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                                                Saved.
+                                                {{ __('Saved.') }}
                                             </jet-action-message>
 
                                             <jet-danger-button v-if="technique.id" @click="confirmDeletion" class="mr-2">
-                                                Delete technique
+                                                {{ __('Delete technique') }}
                                             </jet-danger-button>
 
                                             <!-- Delete Technique Confirmation Modal -->
                                             <jet-dialog-modal :show="confirmingDeletion" @close="closeModal">
                                                 <template #title>
-                                                    Delete technique
+                                                    {{ __('Delete technique') }}
                                                 </template>
 
                                                 <template #content>
                                                     <template v-if="technique.has_training_sessions">
-                                                        You can not delete this technique as it exists on training sessions. Please fix this first.
+                                                        {{ __('Technique can not be deleted as it exists on a training session.') }}
+                                                        {{ __('Please fix this first.') }}
                                                     </template>
                                                     <template v-else>
-                                                        Are you sure you want to delete this technique?
+                                                        {{ __('Are you sure you want to delete this technique?') }}
                                                     </template>
                                                 </template>
 
                                                 <template #footer>
                                                     <jet-secondary-button @click="closeModal">
-                                                        Cancel
+                                                        {{ __('Cancel') }}
                                                     </jet-secondary-button>
 
                                                     <jet-danger-button
@@ -93,14 +94,14 @@
                                                         @click="deleteTechnique"
                                                         :class="{ 'opacity-25': deleteTechniqueForm.processing }"
                                                         :disabled="deleteTechniqueForm.processing">
-                                                        Delete technique
+                                                        {{ __('Delete technique') }}
                                                     </jet-danger-button>
                                                 </template>
                                             </jet-dialog-modal>
 
                                             <jet-button :class="{ 'opacity-25': form.processing }"
                                                         :disabled="form.processing">
-                                                Save technique
+                                                {{ __('Save technique') }}
                                             </jet-button>
                                         </div>
                                     </form>

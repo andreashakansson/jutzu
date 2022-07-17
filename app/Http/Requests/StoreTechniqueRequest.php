@@ -52,11 +52,11 @@ class StoreTechniqueRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => _('You need to enter a name'),
-            'name.max' => _('The name is too long. Maximum is 255 characters.'),
-            'name.unique' => _('This technique already exists'),
-            'description.max' => _('The description is too long. Maximum is 2048 characters.'),
-            'youtube_url.url' => _('Not a valid Youtube link')
+            'name.required' => __('You need to enter a name'),
+            'name.max' => __('The name is too long. Maximum is 255 characters.'),
+            'name.unique' => __('This technique already exists'),
+            'description.max' => __('The description is too long. Maximum is 2048 characters.'),
+            'youtube_url.url' => __('Not a valid Youtube link')
         ];
     }
 }

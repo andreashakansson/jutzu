@@ -13,16 +13,26 @@
                     </div>
                 </div>
             </div>
-            <div v-show="display" class="max-w-full lg:max-w-[60%]">
-                <div v-show="technique.youtube_embed_url" class="video-container mt-4 mb-4">
+            <div v-show="display" class="max-w-full lg:max-w-[60%] mt-4">
+                <div v-show="technique.youtube_embed_url" class="video-container mb-4">
                     <iframe width="560" height="315" :src="technique.youtube_embed_url"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                 </div>
-                <Link :href="route('technique.edit', technique.id)" class="text-sm text-gray-700 underline">
-                    Edit technique
-                </Link>
+                <template v-if="technique.youtube_embed_url">
+                    <Link :href="route('technique.edit', technique.id)"
+                          class="text-sm text-gray-700 underline">
+                        {{ __('Edit technique') }}
+                    </Link>
+                </template>
+                <template v-else>
+                    <span class="text-sm text-gray-700">{{ __('No video added yet.') }}&nbsp;</span>
+                    <Link :href="route('technique.edit', technique.id)"
+                          class="text-sm text-gray-700 underline">
+                        {{ __('Click here to add.') }}
+                    </Link>
+                </template>
             </div>
         </div>
     </a>

@@ -33,8 +33,10 @@ Route::get('/', function () {
     */
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified', 'academy'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'show'])
+        ->name('dashboard')
+        ->withoutMiddleware(['academy']);
 
     Route::get('/guide', function () {
         return Inertia::render('Guide');

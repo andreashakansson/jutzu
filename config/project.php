@@ -3,10 +3,10 @@
 return [
     'trainingSession' => [
         'types' => [
-            'regular' => 'Training session',
+            'regular' => 'Regular training session',
             'sparring' => 'Sparring',
             'openMat' => 'Open mat',
-            'cancelled' => 'Cancelled'
+            'cancelled' => 'Cancelled training session'
         ]
     ]
 ];

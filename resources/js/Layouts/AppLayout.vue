@@ -21,14 +21,17 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <jet-nav-link
+                                    :href="route('dashboard')"
+                                    :active="route().current('dashboard') || route().current('trainingSession.*')"
+                                >
+                                    {{ __('Training sessions') }}
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('technique.index')" :active="route().current('technique.*')">
-                                    Techniques
+                                    {{ __('Techniques') }}
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('guide')" :active="route().current('guide')">
-                                    Guide
+                                    {{ __('Guide') }}
                                 </jet-nav-link>
                             </div>
                         </div>
@@ -131,11 +134,11 @@
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            {{ __('Manage account') }}
                                         </div>
 
                                         <jet-dropdown-link :href="route('profile.show')">
-                                            Profile
+                                            {{ __('Profile') }}
                                         </jet-dropdown-link>
 
                                         <jet-dropdown-link :href="route('api-tokens.index')"
@@ -148,7 +151,7 @@
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <jet-dropdown-link as="button">
-                                                Log Out
+                                                {{ __('Log out') }}
                                             </jet-dropdown-link>
                                         </form>
                                     </template>
@@ -179,8 +182,17 @@
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                      class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <jet-responsive-nav-link
+                            :href="route('dashboard')"
+                            :active="route().current('dashboard') || route().current('trainingSession.*')"
+                        >
+                            {{ __('Training sessions') }}
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link :href="route('technique.index')" :active="route().current('technique.*')">
+                            {{ __('Techniques') }}
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link :href="route('guide')" :active="route().current('guide')">
+                            {{ __('Guide') }}
                         </jet-responsive-nav-link>
                     </div>
 
@@ -201,7 +213,7 @@
                         <div class="mt-3 space-y-1">
                             <jet-responsive-nav-link :href="route('profile.show')"
                                                      :active="route().current('profile.show')">
-                                Profile
+                                {{ __('Profile') }}
                             </jet-responsive-nav-link>
 
                             <jet-responsive-nav-link :href="route('api-tokens.index')"
@@ -213,7 +225,7 @@
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <jet-responsive-nav-link as="button">
-                                    Log Out
+                                    {{ __('Log out') }}
                                 </jet-responsive-nav-link>
                             </form>
 

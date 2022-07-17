@@ -1,5 +1,5 @@
 <template>
-    <Head title="Log in"/>
+    <Head :title="__('Log in')"/>
 
     <jet-authentication-card>
         <template #logo>
@@ -7,10 +7,10 @@
                 <jet-authentication-card-logo/>
             </div>
             <div class="text-center mt-4 text-sm ">
-                No account yet?
+                {{ __('No account yet?') }}
                 <Link :href="route('register')"
                       class="underline text-gray-600 hover:text-gray-900">
-                    Click here to register
+                    {{ __('Click here to register') }}
                 </Link>
             </div>
         </template>
@@ -23,12 +23,12 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email"/>
+                <jet-label for="email" :value="__('Email')"/>
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus/>
             </div>
 
             <div class="mt-4">
-                <jet-label for="password" value="Password"/>
+                <jet-label for="password" :value="__('Password')"/>
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
                            autocomplete="current-password"/>
             </div>
@@ -36,18 +36,18 @@
             <div class="block mt-4">
                 <label class="flex items-center">
                     <jet-checkbox name="remember" v-model:checked="form.remember"/>
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')"
                       class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
+                    {{ __('Forgot your password?') }}
                 </Link>
 
                 <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
+                    {{ __('Log in') }}
                 </jet-button>
             </div>
         </form>

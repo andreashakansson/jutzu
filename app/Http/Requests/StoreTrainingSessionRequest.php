@@ -37,13 +37,13 @@ class StoreTrainingSessionRequest extends FormRequest
     public function messages()
     {
         return [
-            'date.required' => _('You need to select a date'),
-            'date.date' => _('Incorrect date format'),
-            'description.max' => _('Description is too long. Maximum is 2048 characters.'),
-            'techniques.*.name.required' => _('You need to enter a name'),
-            'techniques.*.name.max' => _('The name is too long. Maximum is 255 characters.'),
-            'techniques.*.description.max' => _('The description is too long. Maximum is 2048 characters.'),
-            'techniques.*.youtube_url.url' => _('Not a valid Youtube link')
+            'date.required' => __('You need to select a date'),
+            'date.date' => __('Incorrect date format'),
+            'description.max' => __('The description is too long. Maximum is 2048 characters.'),
+            'techniques.*.name.required' => __('You need to enter a name'),
+            'techniques.*.name.max' => __('The name is too long. Maximum is 255 characters.'),
+            'techniques.*.description.max' => __('The description is too long. Maximum is 2048 characters.'),
+            'techniques.*.youtube_url.url' => __('Not a valid Youtube link')
         ];
     }
 }

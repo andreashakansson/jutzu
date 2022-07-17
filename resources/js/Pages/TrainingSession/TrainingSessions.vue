@@ -19,7 +19,7 @@
                                      class="relative inline-block text-left ml-3 mr-3 mt-[1px]">
                                     <div
                                         class="inline-flex justify-center w-full rounded border px-2 py-1 text-xs font-semibold uppercase text-gray-600 bg-gray-200 hover:bg-gray-100">
-                                        Cancelled
+                                        {{ __('Cancelled') }}
                                     </div>
                                 </div>
 
@@ -30,16 +30,16 @@
                                             :class="getParticipatedButtonClasses(trainingSession.userIsParticipant)"
                                             class="inline-flex justify-center w-full rounded border px-2 py-1 text-xs font-semibold uppercase">
                                             <template v-if="trainingSession.userIsParticipant === null">
-                                                <span>Did you train?</span>
+                                                <span>{{ __('Did you train?') }}</span>
                                                 <ChevronDownIcon class="-mr-1 ml-1 h-4 w-4" aria-hidden="true"/>
                                             </template>
                                             <template v-else-if="trainingSession.userIsParticipant">
                                                 <CheckIcon class="-ml-1 mr-1 h-4 w-4" aria-hidden="true"/>
-                                                <span>You trained</span>
+                                                <span>{{ __('You trained') }}</span>
                                             </template>
                                             <template v-else>
                                                 <XIcon class="-ml-1 mr-1 h-4 w-4" aria-hidden="true"/>
-                                                <span>You missed</span>
+                                                <span>{{ __('You missed') }}</span>
                                             </template>
                                         </MenuButton>
                                     </div>
@@ -59,7 +59,7 @@
                                                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                                                         <CheckIcon class="mr-3 h-5 w-5 text-gray-400"
                                                                    aria-hidden="true"/>
-                                                        <span>Yes</span>
+                                                        <span>{{ __('Yes') }}</span>
                                                     </a>
                                                 </MenuItem>
                                                 <MenuItem v-slot="{ active }">
@@ -67,7 +67,7 @@
                                                        @click.prevent="setParticipated(trainingSession.id, false)"
                                                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                                                         <XIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                                                        <span>No</span>
+                                                        <span>{{ __('No') }}</span>
                                                     </a>
                                                 </MenuItem>
                                             </div>
@@ -85,7 +85,7 @@
                             </div>
 
                             <p class="mt-1 text-sm text-gray-500">
-                                {{ trainingSession.typeHuman }}
+                                {{ __(trainingSession.typeHuman) }}
                             </p>
                             <div v-if="trainingSession.notes" class="mt-2 text-base font-medium text-gray-900">
                                 <p>{{ trainingSession.notes }}</p>
@@ -96,7 +96,7 @@
                                 <div>
                                     <MenuButton
                                         class="-m-2 p-2 rounded-full flex items-center text-gray-400 hover:text-gray-600">
-                                        <span class="sr-only">Open options</span>
+                                        <span class="sr-only">{{ __('Open options') }}</span>
                                         <DotsVerticalIcon class="h-5 w-5" aria-hidden="true"/>
                                     </MenuButton>
                                 </div>
@@ -115,7 +115,7 @@
                                                       :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                                                     <PencilIcon class="mr-3 h-5 w-5 text-gray-400"
                                                                 aria-hidden="true"/>
-                                                    <span>Edit training session</span>
+                                                    <span>{{ __('Edit training session') }}</span>
                                                 </Link>
                                             </MenuItem>
                                         </div>

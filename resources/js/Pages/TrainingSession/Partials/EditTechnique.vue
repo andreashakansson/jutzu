@@ -9,17 +9,18 @@
 
     <div class="col-span-6 sm:col-span-4">
         <jet-label :for="'name-' + index"
-                   :value="'Name of technique ' + (index+1) + ' *'"/>
+                   :value="__('Name of technique :num', { num: (index+1) }) + ' *'"/>
         <multiselect
             v-model="selectedTechnique"
             :options="allTechniques"
             track-by="id"
             label="name"
             :id="'name-' + index"
-            placeholder="Search for an existing technique or enter the name of a new one"
-            selectLabel="Press enter to select"
-            selectedLabel="Selected"
-            deselectLabel="Press enter to remove"
+            :placeholder="__('Search for an existing technique or enter the name of a new one that you want to add')"
+            :select-label="__('Press enter to select')"
+            :selected-label="__('Selected')"
+            :deselect-label="__('Press enter to remove')"
+            :tag-placeholder="__('Add this as a new technique')"
             :taggable="true"
             @tag="addTechniqueToList"
             @select="onSelectedTechnique"
@@ -28,15 +29,17 @@
         />
         <jet-input-error :message="techniqueErrors(index, 'name')" class="mt-2"/>
 
-        <a v-if="technique.id" :href="route('technique.edit', technique.id)" target="_blank"
-              class="underline text-sm text-gray-600 hover:text-gray-900">
-            Edit technique (opens in new tab)
-        </a>
+        <div v-if="technique.id" class="mt-1">
+            <a :href="route('technique.edit', technique.id)" target="_blank"
+               class="underline text-sm text-gray-600 hover:text-gray-900">
+                {{ __('Edit technique (opens in new tab)') }}
+            </a>
+        </div>
     </div>
 
     <template v-if="!technique.id && technique.name !== ''">
         <div class="col-span-6 sm:col-span-4">
-            <jet-label :for="'description-' + index" value="Description of technique"/>
+            <jet-label :for="'description-' + index" :value="__('Description of technique')"/>
             <jet-textarea :for="'description-' + index" class="mt-1 block w-full"
                           v-model="technique.description" autocomplete="off" rows="3"/>
             <jet-input-error :message="techniqueErrors(index, 'description')"
@@ -44,10 +47,16 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <jet-label :for="'youtube-url-' + index" value="Youtube link"/>
+            <jet-label :for="'youtube-url-' + index" :value="__('Youtube link')"/>
             <jet-input :id="'youtube-url-' + index" type="text"
                        class="mt-1 block w-full"
                        v-model="technique.youtube_url" autocomplete="off"/>
+            <div class="text-sm font-medium text-gray-600 mt-1">
+                {{ __('Unsure about how to add a new technique with a Youtube video?') }}
+                <a :href="route('guide')" target="_blank" class="underline">
+                    {{ __('Click here to read the guide.') }}
+                </a>
+            </div>
             <jet-input-error
                 :message="techniqueErrors(index, 'youtube_url')"
                 class="mt-2"/>

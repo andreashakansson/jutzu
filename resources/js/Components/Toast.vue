@@ -47,7 +47,7 @@ export default {
                 if (this.timeout) {
                     clearTimeout(this.timeout)
                 }
-                this.timeout = setTimeout(() => this.visible = false, 2000)
+                this.timeout = setTimeout(() => this.visible = false, 4000)
             }
         }
     }
