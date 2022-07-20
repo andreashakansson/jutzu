@@ -30,6 +30,9 @@
                                 <jet-nav-link :href="route('technique.index')" :active="route().current('technique.*')">
                                     {{ __('Techniques') }}
                                 </jet-nav-link>
+                                <jet-nav-link :href="route('event.index')" :active="route().current('event.*')">
+                                    {{ __('Calendar') }}
+                                </jet-nav-link>
                                 <jet-nav-link :href="route('guide')" :active="route().current('guide')">
                                     {{ __('Guide') }}
                                 </jet-nav-link>
@@ -190,6 +193,9 @@
                         </jet-responsive-nav-link>
                         <jet-responsive-nav-link :href="route('technique.index')" :active="route().current('technique.*')">
                             {{ __('Techniques') }}
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link :href="route('event.index')" :active="route().current('event.*')">
+                            {{ __('Calendar') }}
                         </jet-responsive-nav-link>
                         <jet-responsive-nav-link :href="route('guide')" :active="route().current('guide')">
                             {{ __('Guide') }}

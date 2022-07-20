@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AcademyEventController;
 use App\Http\Controllers\TechniqueController;
 use App\Http\Controllers\TrainingSessionController;
 use Illuminate\Support\Facades\Auth;
@@ -63,5 +64,16 @@ Route::middleware(['auth:sanctum', 'verified', 'academy'])->group(function () {
         ->name('technique.submit');
     Route::delete('/technique/{techniqueId}', [TechniqueController::class, 'delete'])
         ->name('technique.delete');
+
+    Route::get('/event', [AcademyEventController::class, 'index'])
+        ->name('event.index');
+    Route::get('/event/create', [AcademyEventController::class, 'create'])
+        ->name('event.create');
+    Route::get('/event/{eventId}/edit', [AcademyEventController::class, 'edit'])
+        ->name('event.edit');
+    Route::post('/event', [AcademyEventController::class, 'submit'])
+        ->name('event.submit');
+    Route::delete('/event/{eventId}', [AcademyEventController::class, 'delete'])
+        ->name('event.delete');
 
 });

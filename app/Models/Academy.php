@@ -19,4 +19,9 @@ class Academy extends Model
     {
         return $this->hasMany(Technique::class);
     }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(AcademyEvent::class);
+    }
 }

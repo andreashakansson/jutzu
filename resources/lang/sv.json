@@ -143,5 +143,18 @@
     "Email verification": "Verifiering av e-postadress",
     "Please click the button below to verify your email address.": "Klicka på knappen nedan för att verifiera din e-postadress.",
     "If you did not create an account, no further action is required.": "Om du inte skapade ett konto så behöver du inte göra något.",
-    "Verify Email Address": "Verifiera e-postadressen"
+    "Verify Email Address": "Verifiera e-postadressen",
+    "Description of the event": "Beskrivning av händelsen",
+    "at": "kl.",
+    "Calendar": "Kalender",
+    "Upcoming events": "Kommande händelser",
+    "New event": "Ny händelse",
+    "Edit event": "Redigera händelse",
+    "Starts": "Börjar",
+    "Ends": "Slutar",
+    "Delete event": "Radera händelse",
+    "Save event": "Spara händelse",
+    "Are you sure you want to delete this event?": "Är du säker på att du vill radera denna händelse?",
+    "Event has been updated!": "Händelsen har uppdaterats!",
+    "Event has been added!": "Händelsen har lagts till!"
 }
