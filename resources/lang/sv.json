@@ -13,7 +13,7 @@
     "Open mat": "Öppen matta",
     "Techniques": "Tekniker",
     "Technique": "Teknik",
-    "All techniques at :academy": "Alla tekniker på :academy",
+    "Techniques at :academy": "Tekniker på :academy",
     "New technique": "Ny teknik",
     "Edit training session": "Redigera träningspass",
     "Date": "Datum",
@@ -156,5 +156,11 @@
     "Save event": "Spara händelse",
     "Are you sure you want to delete this event?": "Är du säker på att du vill radera denna händelse?",
     "Event has been updated!": "Händelsen har uppdaterats!",
-    "Event has been added!": "Händelsen har lagts till!"
+    "Event has been added!": "Händelsen har lagts till!",
+    "Drilled in :count training sessions": "Drillad på :count träningspass",
+    "Drilled in 1 training session": "Drillad på 1 träningspass",
+    "Sort by:": "Sortera på:",
+    "Last added": "Senast inlagda",
+    "Most drilled": "Mest drillade"
+
 }

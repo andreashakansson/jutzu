@@ -54,7 +54,7 @@ Route::middleware(['auth:sanctum', 'verified', 'academy'])->group(function () {
     Route::post('/training-session/{trainingSessionId}/participant', [TrainingSessionController::class, 'participant'])
         ->name('trainingSession.participant');
 
-    Route::get('/technique', [TechniqueController::class, 'index'])
+    Route::get('/technique/{sortBy?}', [TechniqueController::class, 'index'])
         ->name('technique.index');
     Route::get('/technique/create', [TechniqueController::class, 'create'])
         ->name('technique.create');

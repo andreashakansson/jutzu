@@ -9,7 +9,7 @@
         <div class="py-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-wrap justify-between mb-2">
                 <div class="text-2xl">
-                    {{ __('All techniques at :academy', { academy: academy.name }) }}
+                    {{ __('Techniques at :academy', { academy: academy.name }) }}
                 </div>
 
                 <div class="flex-shrink-0 flex">
@@ -18,6 +18,18 @@
                         {{ __('New technique') }}
                     </Link>
                 </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-2 text-gray-600">
+
+                {{ __('Sort by:') }}
+                <Link :href="route('technique.index')" :class="sortBy === null ? 'font-bold' : 'underline'">
+                    {{ __('Last added') }}
+                </Link>
+                 -
+                <Link :href="route('technique.index', 'most-drilled')" :class="sortBy === 'most-drilled' ? 'font-bold' : 'underline'">
+                    {{ __('Most drilled') }}
+                </Link>
             </div>
 
             <div v-for="technique in techniques" :key="technique.id"
@@ -34,6 +46,15 @@
                                         <h3 class="text-lg font-medium text-gray-900">
                                             {{ technique.name }}
                                         </h3>
+                                        <div class="ml-2 text-lg font-medium text-gray-400">
+                                            -
+                                            <template v-if="technique.training_sessions_count > 1">
+                                                {{ __('Drilled in :count training sessions', { count: technique.training_sessions_count }) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ __('Drilled in 1 training session') }}
+                                            </template>
+                                        </div>
                                     </div>
 
                                     <div v-if="technique.description" class="mt-1 text-sm text-gray-500">
@@ -124,7 +145,8 @@ import {BellIcon, MenuIcon, XIcon} from '@heroicons/vue/outline'
 export default defineComponent({
     props: [
         'academy',
-        'techniques'
+        'techniques',
+        'sortBy'
     ],
     components: {
         AppLayout,

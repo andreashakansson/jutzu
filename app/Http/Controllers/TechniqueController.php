@@ -12,22 +12,31 @@ use Inertia\Response;
 class TechniqueController extends Controller
 {
 
-    public function index()
+    public function index($sortBy = null)
     {
         $academy = Auth::user()->academies()->first();
-        $techniques = $academy->techniques()->orderBy('created_at', 'desc')->get();
+        $query = $academy->techniques()->withCount('trainingSessions');
+        if ($sortBy === 'most-drilled') {
+            $query->orderBy('training_sessions_count', 'desc')
+                ->orderBy('created_at', 'desc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+        $techniques = $query->get();
         $out = [];
         foreach ($techniques as $technique) {
             $out[] = [
                 'id' => $technique->id,
                 'name' => $technique->name,
                 'description' => $technique->description,
-                'youtube_embed_url' => $technique->youtube_embed_url
+                'youtube_embed_url' => $technique->youtube_embed_url,
+                'training_sessions_count' => $technique->training_sessions_count
             ];
         }
         $data = [
             'academy' => $academy,
-            'techniques' => $out
+            'techniques' => $out,
+            'sortBy' => $sortBy
         ];
         return Inertia::render('Technique/Index', $data);
     }
