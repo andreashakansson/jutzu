@@ -23,11 +23,11 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-2 text-gray-600">
 
                 {{ __('Sort by:') }}
-                <Link :href="route('technique.index')" :class="sortBy === null ? 'font-bold' : 'underline'">
+                <Link :href="route('technique.index')" :class="route().current('technique.index') ? 'font-bold' : 'underline'">
                     {{ __('Last added') }}
                 </Link>
                  -
-                <Link :href="route('technique.index', 'most-drilled')" :class="sortBy === 'most-drilled' ? 'font-bold' : 'underline'">
+                <Link :href="route('technique.index.most-drilled')" :class="route().current('technique.index.most-drilled') ? 'font-bold' : 'underline'">
                     {{ __('Most drilled') }}
                 </Link>
             </div>
@@ -48,11 +48,14 @@
                                         </h3>
                                         <div class="ml-2 text-lg font-medium text-gray-400">
                                             -
-                                            <template v-if="technique.training_sessions_count > 1">
+                                            <template v-if="technique.training_sessions_count === 1">
+                                                {{ __('Drilled in 1 training session') }}
+                                            </template>
+                                            <template v-else-if="technique.training_sessions_count > 1">
                                                 {{ __('Drilled in :count training sessions', { count: technique.training_sessions_count }) }}
                                             </template>
                                             <template v-else>
-                                                {{ __('Drilled in 1 training session') }}
+                                                {{ __('Not drilled yet') }}
                                             </template>
                                         </div>
                                     </div>

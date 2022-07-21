@@ -41,6 +41,11 @@ class TechniqueController extends Controller
         return Inertia::render('Technique/Index', $data);
     }
 
+    public function indexMostDrilled()
+    {
+        return $this->index('most-drilled');
+    }
+
     public function create(): Response
     {
         Auth::user()->academies()->firstOrFail();
